@@ -3,8 +3,8 @@ $.ajax({
   url:'https://api.yelp.com/oauth2/token',
   method: "POST",
   data: {
-    client_secret:' 5b6ocTuApDEJVkGqEjcDTi6mmY1OWno8SrUoqtkZsn2DKrxiBZMXPAKJQJPHd1FL',
-    client_id:' 2RvxPlh5KA2HdF8q0UVhVg',
+    client_secret:'5b6ocTuApDEJVkGqEjcDTi6mmY1OWno8SrUoqtkZsn2DKrxiBZMXPAKJQJPHd1FL',
+    client_id:'2RvxPlh5KA2HdF8q0UVhVg',
     grant_type: 'client_credentials'
 
   },
@@ -13,7 +13,11 @@ $.ajax({
 ,
 success: function(data){
   console.log(data.access_token)
-}})
+},
+error: function(data){
+  console.log("error getting accesstoken: "+data.access_token)
+}
+})
 
 
 var initMap = function () {
@@ -59,6 +63,9 @@ var listYelpPlaces = [
               ,
               success: function(data){
                 console.log(data.name)
+              },
+              error: function(data){
+                console.log("error retrieving data "+data)
               }})
 
 
