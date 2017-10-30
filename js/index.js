@@ -1,4 +1,12 @@
 var map
+CLIENT_ID
+
+SEHUEOSE3XRMJMKEK5SZVIQE3DKILVAKUJMAMQQAUWQSHWSY
+
+CLIENT_SECRET
+
+21PN43B0IGHQJNHUEHXEAAKA1VTBA5WPXEZD3MRKNXP0ZRRK
+
 $.ajax({
   url:'https://api.yelp.com/oauth2/token',
   method: "POST",
@@ -55,12 +63,13 @@ var listYelpPlaces = [
             //marker.getTitle()
 
               $.ajax({
-                url:'https://api.yelp.com/v3/businesses/la-mexicana-new-york',
+                url:'https://api.foursquare.com/v2/venues/49d51ce3f964a520675c1fe3',
                 method: "GET",
-                "crossDomain": true,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded',
-                  'Authorization': 'Bearer W36GXnXjbevEXcelGjNOt9YdKGbOKwEn0I73DDs2nouH3BqzUr8dBTeNs-_MHXfxbs45SAmJRg-R1uQ2_y11a3mLWkysqyaxwyzn9ShCCEJI4bFGmBLmNsOfzePJWXYx' }
-              ,
+                data: {
+                  client_secret:'5b6ocTuApDEJVkGqEjcDTi6mmY1OWno8SrUoqtkZsn2DKrxiBZMXPAKJQJPHd1FL',
+                  client_id:'2RvxPlh5KA2HdF8q0UVhVg'
+                },
+
               success: function(data){
                 console.log(data.name)
               },
