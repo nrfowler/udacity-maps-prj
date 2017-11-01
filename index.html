@@ -6,7 +6,12 @@
       <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div id = "map" style="width: 500px;height: 500px;"></div>
+  <div id = "sidebar" style="width: 100px;height: 500px; float: left;">
+    <div  data-bind="foreach: listPlaces">
+      <a data-bind="text: title">sdf</a>
+    </div>
+  </div>
+<div id = "map" style="width: 400px;height: 500px; float: left;"></div>
 <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
   <script defer src="js/index.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>

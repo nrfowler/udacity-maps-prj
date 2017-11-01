@@ -55,23 +55,15 @@ var listYelpPlaces = [
     }
     var toggleActive = function (marker){
             //marker.getTitle()
-
               $.ajax({
-                url:'https://api.foursquare.com/v2/venues/49d51ce3f964a520675c1fe3',
+                url:'https://api.foursquare.com/v2/venues/49d51ce3f964a520675c1fe3?v=20171010&client_id=SEHUEOSE3XRMJMKEK5SZVIQE3DKILVAKUJMAMQQAUWQSHWSY&client_secret=21PN43B0IGHQJNHUEHXEAAKA1VTBA5WPXEZD3MRKNXP0ZRRK',
                 method: "GET",
-                data: {
-                  client_secret:'21PN43B0IGHQJNHUEHXEAAKA1VTBA5WPXEZD3MRKNXP0ZRRK',
-                  client_id:'SEHUEOSE3XRMJMKEK5SZVIQE3DKILVAKUJMAMQQAUWQSHWSY'
-                },
-
               success: function(data){
-                console.log(data.name)
+                console.log(data.response.venue.id)
               },
               error: function(data){
                 console.log("error retrieving data "+data)
               }})
-
-
     }
     for (let element of listPlaces) {
       element.addListener('click', function(){toggleBounce(element)})
