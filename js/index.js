@@ -26,26 +26,22 @@ var initMap = function () {
 map = new google.maps.Map(document.getElementById('map'), {
 center: {lat: 40.74, lng: -73.998},
 zoom: 13})
-var listYelpPlaces = [
-  {
-    title: "McDonalds",
-    active: false
-  },
-  {
-    title: "Subway",
-    active: false
-  }
-]
-    var listPlaces=[ new google.maps.Marker({
+
+    var listPlaces=[
+      {marker: new google.maps.Marker({
     position: {lat: 40.719526, lng: -74.0089934},
     map: map,
     animation: google.maps.Animation.DROP,
     title: 'First Marker!'}),
-    new google.maps.Marker({
+  onClick: undefined,
+isActive: false},
+    {marker: new google.maps.Marker({
     position: {lat: 40.723590, lng: -74.0089900},
     map: map,
     animation: google.maps.Animation.DROP,
-    title: 'Second Marker!'})]
+    title: 'Second Marker!'}),
+  onClick: undefined,
+isActive: false}]
     var toggleBounce = function (marker){
             if (marker.getAnimation() !== null) {
               marker.setAnimation(null)
@@ -59,15 +55,21 @@ var listYelpPlaces = [
                 url:'https://api.foursquare.com/v2/venues/49d51ce3f964a520675c1fe3?v=20171010&client_id=SEHUEOSE3XRMJMKEK5SZVIQE3DKILVAKUJMAMQQAUWQSHWSY&client_secret=21PN43B0IGHQJNHUEHXEAAKA1VTBA5WPXEZD3MRKNXP0ZRRK',
                 method: "GET",
               success: function(data){
+                marker.isActive = true
                 console.log(data.response.venue.id)
               },
               error: function(data){
+                marker.isActive = false
                 console.log("error retrieving data "+data)
               }})
     }
     for (let element of listPlaces) {
-      element.addListener('click', function(){toggleBounce(element)})
-      element.addListener('click',function(){toggleActive(element)})
+      element.marker.addListener('click', function(){toggleBounce(element.marker)})
+      element.marker.addListener('click',function(){toggleActive(element.marker)})
+      element.onClick = function (){
+          toggleBounce(element.marker)
+          toggleActive(element.marker)
+      }
     }
 
 ko.applyBindings( new ViewModel(listPlaces))
@@ -78,7 +80,8 @@ ko.applyBindings( new ViewModel(listPlaces))
  }
 
 var ViewModel = function (listPlaces) {
-  this.observableArray(listPlaces)
+  this.listPlaces = ko.observableArray(listPlaces)
+
 }
 
 
