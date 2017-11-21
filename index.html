@@ -7,17 +7,22 @@
 </head>
 <body>
   <div id = "sidebar" style="width: 100px;height: 500px; float: left;">
+    <!-- <input type="search" id="mySearch" placeholder="Search for something..">
+    <button onclick="mySearch">Search</button>
+    <button  onclick="myCancel">Cancel</button> -->
     <table  data-bind="foreach: listPlaces">
       <tr>
-        <td data-bind="text: marker.title">
+        <td >
+          <!-- <button data-bind="click: $parent.onClick">test</button> -->
+        </td>
         </td>
       </tr>
     </table>
   </div>
 <div id = "map" style="width: 400px;height: 500px; float: left;"></div>
 <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-  <script defer src="js/index.js"></script>
+  <script src="js/index.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
-    <script   async defer src="https://maps.googleapis.com/maps/api/js?key= AIzaSyDp4HtMWumIgIKs_ITn7u3J2NXAOLnpkJY&v=3&callback=initMap"></script>
+    <script    defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcH4Lk8f2BZeXLsRsKTyh5mZcMGyQqqYs&v=3&callback=initMap"></script>
 </body>
 </html>

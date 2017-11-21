@@ -1,90 +1,104 @@
 var map
 
-
-$.ajax({
-  url:'https://api.yelp.com/oauth2/token',
-  method: "POST",
-  data: {
-    client_secret:'5b6ocTuApDEJVkGqEjcDTi6mmY1OWno8SrUoqtkZsn2DKrxiBZMXPAKJQJPHd1FL',
-    client_id:'2RvxPlh5KA2HdF8q0UVhVg',
-    grant_type: 'client_credentials'
-
-  },
-  headers: { 'Content-Type': 'application/x-www-form-urlencoded',
-    }
-,
-success: function(data){
-  console.log(data.access_token)
-},
-error: function(data){
-  console.log("error getting accesstoken: "+data.access_token)
+var toggleBounce = function (place){
+  console.log("on click "+place.marker.title)
+  let marker = place.marker
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null)
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE)
+        }
 }
-})
+var toggleActive = function (place){
+  //clear all infoWindows
+  let urlString = 'https://api.foursquare.com/v2/venues/'+place.venueId+'?v=20171010&client_id='+
+  'SEHUEOSE3XRMJMKEK5SZVIQE3DKILVAKUJMAMQQAUWQSHWSY&client_secret=21PN43B0IGHQJNHUEHXEAAKA1VTBA5WPXEZD3MRKNXP0ZRRK'
+  let marker = place.marker
+          $.ajax({
+            url: urlString,
+            method: "GET",
+          success: function(data){
+            marker.isActive = true
+            console.log(data.response.venue.name)
+            var infoWindow = new google.maps.InfoWindow({
+            content: data.response.venue.name})
+
+            infoWindow.open(map, marker)
+          },
+          error: function(data){
+            marker.isActive = false
+            console.log("error retrieving data "+place.ven)
+          }})
+}
+
 
 
 var initMap = function () {
+  console.log("init map")
 map = new google.maps.Map(document.getElementById('map'), {
-center: {lat: 40.74, lng: -73.998},
+center: {"lat": 41.58989350941445,
+        "lng": -93.61109381248022},
 zoom: 13})
 
     var listPlaces=[
       {marker: new google.maps.Marker({
-    position: {lat: 40.719526, lng: -74.0089934},
+    position: {"lat": 41.58989350941445,
+            "lng": -93.61109381248022},
     map: map,
     animation: google.maps.Animation.DROP,
+
     title: 'First Marker!'}),
-  onClick: undefined,
+    venueId: '524dc775498e350c4418dc7b',
 isActive: false},
     {marker: new google.maps.Marker({
-    position: {lat: 40.723590, lng: -74.0089900},
+    position: {"lat": 41.590459968991404,
+            "lng": -93.61162179575165},
     map: map,
     animation: google.maps.Animation.DROP,
     title: 'Second Marker!'}),
-  onClick: undefined,
+    venueId: '4b8f2be4f964a520244c33e3',
+isActive: false},
+{marker: new google.maps.Marker({
+position: {"lat": 41.58515086613031,
+        "lng": -93.62051625430041},
+map: map,
+animation: google.maps.Animation.DROP,
+title: 'Johnnys Hall of Fame'}),
+venueId: '4aa8662af964a520205120e3',
 isActive: false}]
-    var toggleBounce = function (marker){
-            if (marker.getAnimation() !== null) {
-              marker.setAnimation(null)
-            } else {
-              marker.setAnimation(google.maps.Animation.BOUNCE)
-            }
-    }
-    var toggleActive = function (marker){
-            //marker.getTitle()
-              $.ajax({
-                url:'https://api.foursquare.com/v2/venues/49d51ce3f964a520675c1fe3?v=20171010&client_id=SEHUEOSE3XRMJMKEK5SZVIQE3DKILVAKUJMAMQQAUWQSHWSY&client_secret=21PN43B0IGHQJNHUEHXEAAKA1VTBA5WPXEZD3MRKNXP0ZRRK',
-                method: "GET",
-              success: function(data){
-                marker.isActive = true
-                console.log(data.response.venue.id)
-              },
-              error: function(data){
-                marker.isActive = false
-                console.log("error retrieving data "+data)
-              }})
-    }
+
     for (let element of listPlaces) {
-      element.marker.addListener('click', function(){toggleBounce(element.marker)})
-      element.marker.addListener('click',function(){toggleActive(element.marker)})
-      element.onClick = function (){
-          toggleBounce(element.marker)
-          toggleActive(element.marker)
-      }
+      element.marker.addListener('click', function(){toggleBounce(element)})
+      element.marker.addListener('click',function(){toggleActive(element)})
+
     }
 
 ko.applyBindings( new ViewModel(listPlaces))
-// var infoWindow = new google.maps.InfoWindow({
-// content: 'I am an info window!!'})
-// marker.addListener('click', function () {
-// infoWindow.open(map, marker) })
+
  }
 
 var ViewModel = function (listPlaces) {
-  this.listPlaces = ko.observableArray(listPlaces)
+  let self = this;
+  this.listPlaces = listPlaces
+  this.mySearch = function(){
+    var query = document.getElementById("mySearch").placeholder
+    //listPlaces match on title
+    //set isVisible = true
+    for (var place of self.listPlaces) {
+      if(place.marker.title.indexOf(query) !== -1)
+        place.isVisible = false
 
+    }
+  }
+  this.myCancel = function(){
+    for (var place of self.listPlaces) {
+        place.isVisible = true
+
+    }}
+
+  this.onClick = function (place){
+    console.log("on click "+place.marker.title)
+      toggleBounce(place)
+      toggleActive(place)
+  }
 }
-
-
-// document.getElementById('cat1').addEventListener('click', function(){
-//   document.getElementById('cat-container').innerHTML  = ;
-// }, false);
