@@ -6,15 +6,14 @@
       <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id = "sidebar" style="width: 100px;height: 500px; float: left;">
-    <!-- <input type="search" id="mySearch" placeholder="Search for something..">
-    <button onclick="mySearch">Search</button>
-    <button  onclick="myCancel">Cancel</button> -->
+  <div id = "sidebar" style="width: 200px;height: 500px; float: left;">
+    <input type="search" id="mySearch" data-bind="enterkey: mySearch" placeholder="Search for something..">
+    <button data-bind="click: mySearch">Search</button>
+    <button  data-bind="click: myCancel">Cancel</button>
     <table  data-bind="foreach: listPlaces">
       <tr>
-        <td >
-          <!-- <button data-bind="click: $parent.onClick">test</button> -->
-        </td>
+        <td>
+           <button class="markerButton" data-bind="click: $parent.onClick, text: marker.title"></button>
         </td>
       </tr>
     </table>
