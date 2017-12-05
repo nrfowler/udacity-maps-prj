@@ -10,10 +10,10 @@
     <input type="search" id="mySearch" data-bind="enterkey: mySearch" placeholder="Search for something..">
     <button data-bind="click: mySearch">Search</button>
     <button  data-bind="click: myCancel">Cancel</button>
-    <table  data-bind="foreach: listPlaces">
+    <table  data-bind="foreach: listPlaces()">
       <tr>
         <td>
-           <button class="markerButton" data-bind="click: $parent.onClick, text: marker.title"></button>
+           <button class="markerButton" data-bind="click: $parent.onClick, text: name()"></button>
         </td>
       </tr>
     </table>
@@ -21,7 +21,7 @@
 <div id = "map" style="width: 400px;height: 500px; float: left;"></div>
 <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
   <script src="js/index.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
     <script    defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcH4Lk8f2BZeXLsRsKTyh5mZcMGyQqqYs&v=3&callback=initMap"></script>
 </body>
 </html>
