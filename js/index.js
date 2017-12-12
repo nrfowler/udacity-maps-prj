@@ -10,21 +10,26 @@ var toggleActive = function (place,listMarkers){
     }
     return 0
   }
+  let marker = listMarkers[findPlaceIdx(place)]
+  //set all other markers to no BOUNCE
+  for(var markeri of listMarkers){
+    markeri.setAnimation(null)
+  }
+
   if(place.isActive()){
     infoWindow.close()
     console.log("already active, shutting it down")
     place.isActive(false)
+    //marker.setAnimation(null)
     return
   }
   else
     infoWindow.close()
   place.isActive(true)
-  let marker = listMarkers[findPlaceIdx(place)]
-  // if (marker.getAnimation() !== null) {
-  //   marker.setAnimation(null)
-  // } else {
-  //   marker.setAnimation(google.maps.Animation.BOUNCE)
-  // }
+
+
+  marker.setAnimation(google.maps.Animation.BOUNCE)
+
   //marker.isActive = true
   contentString = '<h1>'+(place.name || "") +'</h1>'
   +'<h3>'+ (place.description || "")+'</h3>'
@@ -121,7 +126,14 @@ var listPlaces = []
         map: map,
         animation: google.maps.Animation.DROP,
         title: data.response.venue.name})
-      listMarkers[idx].addListener('click',function(){toggleActive(element,listMarkers)})
+      listMarkers[idx].addListener('click',function(){
+        toggleActive(element,listMarkers)
+        //set all markers to inactive
+        for (var placem of vm.listPlaces()) {
+          if(placem!=element)
+            placem.isActive(false)
+        }
+      })
       listPlaces[idx]=element
       vm.listPlaces()[idx]=element
     },
