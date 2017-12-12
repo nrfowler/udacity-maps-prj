@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <div id = "sidebar"  style="width: 200px;height: 500px; float: left;">
-      <input type="search" id="mySearch"  placeholder="Search for something..">
+    <div id = "sidebar"  >
+      <input type="search" id="mySearch"  data-bind="value: query" placeholder="Search for something..">
       <button data-bind="click: mySearch">Search</button>
       <button  data-bind="click: myCancel">Cancel</button>
       <table  data-bind="foreach: listPlaces()">
@@ -17,8 +17,9 @@
           </td>
         </tr>
       </table>
+      <p>Provided by Foursquare API </p>
     </div>
-    <div id = "map" style="width: 400px;height: 500px; float: left;"></div>
+    <div id = "map" ></div>
     <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <script src="js/index.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>

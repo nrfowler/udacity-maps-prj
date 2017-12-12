@@ -18,9 +18,7 @@ var toggleActive = function (place,listMarkers){
 
   if(place.isActive()){
     infoWindow.close()
-    console.log("already active, shutting it down")
     place.isActive(false)
-    //marker.setAnimation(null)
     return
   }
   else
@@ -44,14 +42,12 @@ var initMap = function () {
   var ViewModel = function () {
     let self = this
     self.listPlaces = ko.observableArray([])
+    self.query = ko.observable()
     self.mySearch = function(){
-    console.log("my search "+document.getElementById("mySearch").value)
-    var query = document.getElementById("mySearch").value
       setMapOnAll(null)
-    console.log(self.listPlaces())
     for (var idx in self.listPlaces()) {
       var place = self.listPlaces()[idx]
-      if(place.name.toLowerCase().indexOf(query.toLowerCase()) !== -1){
+      if(place.name.toLowerCase().indexOf(self.query().toLowerCase()) !== -1){
         place.isVisible(true)
         listMarkers[idx].setMap(map)
       }
@@ -66,7 +62,7 @@ var initMap = function () {
           for (var place of self.listPlaces()) {
               place.isVisible(true)
           }
-          document.getElementById("mySearch").value=""
+          self.query("")
 
       }
     self.onClick = function (place){

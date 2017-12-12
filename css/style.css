@@ -1,3 +1,11 @@
-/*.markerButton{
-  width: 100px;
-}*/
+.markerButton{
+  width: 100%;
+}
+
+#sidebar{
+  width: 25%;height: 100%; float: left;
+}
+
+#map{
+  width: 75%; height: 100%; float: left;
+}
