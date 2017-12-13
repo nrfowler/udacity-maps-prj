@@ -8,4 +8,5 @@
 
 #map{
   width: 75%; height: 100%; float: left;
+  background-color: black;
 }

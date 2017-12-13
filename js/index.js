@@ -100,44 +100,60 @@ var listVenueIds=[
 var listMarkers =[]
 var vm = new ViewModel()
 var listPlaces = []
+function get4SquareData(idx,listVenueIds){
+  return new Promise((resolve,reject)=>{
+        let id = listVenueIds[idx]
+        let urlString = 'https://api.foursquare.com/v2/venues/'+id+
+        '?v=20171010&client_id='+
+        'SEHUEOSE3XRMJMKEK5SZVIQE3DKILVAKUJMAMQQAUWQSHWSY&client_'+
+        'secret=21PN43B0IGHQJNHUEHXEAAKA1VTBA5WPXEZD3MRKNXP0ZRRK'
+        $.ajax({
+          url: urlString,
+          method: "GET",
+          async: true,
+          success: function(data){
+          var element = new placeItemModel('','','','',id, false, true)
+          element.name = data.response.venue.name
+          element.description = data.response.venue.description
+          element.phone = data.response.venue.contact.formattedPhone
+          element.address = data.response.venue.location.address
+          listMarkers[idx] = new google.maps.Marker({
+            position: {lat: data.response.venue.location.lat,
+            lng: data.response.venue.location.lng},
+            map: map,
+            animation: google.maps.Animation.DROP,
+            title: data.response.venue.name})
+          listMarkers[idx].addListener('click',function(){
+            toggleActive(element,listMarkers)
+            //set all markers to inactive
+            for (var placem of vm.listPlaces()) {
+              if(placem!=element)
+                placem.isActive(false)
+            }
+          })
+          listPlaces[idx]=element
+          vm.listPlaces()[idx]=element
+          resolve()
+        },
+        error: function(data){
+          console.log("error retrieving data ")
+          reject()
+        }})
+  })
+
+}
+async function getData(){
+  let promises =[]
   for (let idx in listVenueIds) {
-    let id = listVenueIds[idx]
-    let urlString = 'https://api.foursquare.com/v2/venues/'+id+
-    '?v=20171010&client_id='+
-    'SEHUEOSE3XRMJMKEK5SZVIQE3DKILVAKUJMAMQQAUWQSHWSY&client_'+
-    'secret=21PN43B0IGHQJNHUEHXEAAKA1VTBA5WPXEZD3MRKNXP0ZRRK'
-    $.ajax({
-      url: urlString,
-      method: "GET",
-  async: false,
-    success: function(data){
-      var element = new placeItemModel('','','','',id, false, true)
-      element.name = data.response.venue.name
-      element.description = data.response.venue.description
-      element.phone = data.response.venue.contact.formattedPhone
-      element.address = data.response.venue.location.address
-      listMarkers[idx] = new google.maps.Marker({
-        position: {lat: data.response.venue.location.lat,
-        lng: data.response.venue.location.lng},
-        map: map,
-        animation: google.maps.Animation.DROP,
-        title: data.response.venue.name})
-      listMarkers[idx].addListener('click',function(){
-        toggleActive(element,listMarkers)
-        //set all markers to inactive
-        for (var placem of vm.listPlaces()) {
-          if(placem!=element)
-            placem.isActive(false)
-        }
-      })
-      listPlaces[idx]=element
-      vm.listPlaces()[idx]=element
-    },
-    error: function(data){
-      console.log("error retrieving data ")
-    }})
+    promises.push(
+      get4SquareData(idx,listVenueIds))
+
   }
+  await Promise.all(promises)
   ko.applyBindings(vm)
+
+  }
+  getData()
 
   function setMapOnAll(map) {
         for (var i = 0; i < listMarkers.length; i++) {

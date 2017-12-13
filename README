@@ -1,1 +1,36 @@
 Google Maps Venue Viewer Using Foursquare API
+
+
+Top Ten Programming Skills You Should Develop
+
+Here are some skills that you probably need to develop if you are a newbie and are stuck in "newbie purgatory."
+Alot of these things are what HS/freshman year classes gloss over.
+If you keep having interviews and missing things, here are some areas you may have forgotten:
+
+Recursion
+  This is more than just understanding what it is. You should know the various forms of recursion and have practiced
+  applying them.
+Official Sources
+  Always try to read the official source on something. This usually means the company that made the language
+  or technology. Read their official docs or white papers. Instead of reading a how to guide from an "expert" online.
+
+Mathematical Computing
+  You will find this in an engineering degree but HS math courses leave it out.
+  Everything you learn in math you can simulate in a computer.
+Advanced programming
+  Just read a book on advanced <your programming language> and you will see what you are missing out on.
+Git/Source Control
+  Newbs often just use built-in processes for SC, and don't understand it themselves.
+Full Stack Development
+  Understand how a db communicates to the front end and vice versa.
+Web Services/APIs
+  They are more than just a URL. Learn the different types and ideas behind them.
+Object oriented
+  More than just freshman year level, there is a deeper level of understanding.
+  You need to know the exact details of every perturbation of using methods with different access modifieres and parameters
+  You need to know every possible way of inheriting/extending classes/interfaces/abstract classes
+asynchronous Programming
+  An important type of programming that newbie/hs/freshman classes leave out.
+  It is basically a completely different paradigm.
+Unit Testing
+  Once you get past writing simple programs, you should be testing your applications and unit testing should be a part of your daily programming.
