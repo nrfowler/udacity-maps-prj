@@ -2,11 +2,25 @@
   width: 100%;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.searchbuttons{
+  margin: 10px;
+  background-color: gray;
+  float: left;
+  width: 50%;
+}
+.mySearch{
+  width: 100%;
+  margin 10px;
+}
 #sidebar{
-  width: 25%;height: 100%; float: left;
+  width: 25%;height: 300px; float: left;
 }
 
 #map{
-  width: 75%; height: 100%; float: left;
-  background-color: black;
+  width: 75%; height: inherit; float: left; position: relative; overflow: hidden;
 }

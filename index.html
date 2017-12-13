@@ -2,14 +2,17 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Udacity Google Maps Project</title>
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <div id = "sidebar"  >
+    <div id = "sidebar">
       <input type="search" id="mySearch"  data-bind="value: query" placeholder="Search for something..">
+      <div id="searchbuttons">
       <button data-bind="click: mySearch">Search</button>
       <button  data-bind="click: myCancel">Cancel</button>
+    </div>
       <table  data-bind="foreach: listPlaces()">
         <tr>
           <td>
