@@ -1,39 +1,41 @@
 @media (min-width: 601px) {
-
-.markerButton{
-  width: 100%;
-}
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-#searchbuttons{
-  margin: 10px;
-
-  width: 50%;
-}
-#searchButtonDiv{
-  width: 100%;
-}
-#mySearch{
-  width: 100%;
-  margin: 10px;
-}
-#sidebar{
-  width: 25%;height: 300px; float: left;
-}
-#map{
-  width: 75%; height: inherit; float: left; position: relative; overflow: hidden;
-}
+  .markerButton{
+    width: 100%;
+  }
+  html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+  }
+  #searchButton{
+    width: 50%;
+  }
+  #searchButtons{
+    width: 100%;
+    margin: 10px;
+  }
+  #mySearch{
+    width: 100%;
+    margin: 10px;
+  }
+  #sidebar{
+    width: 25%;height: 300px; float: left;
+  }
+  #map{
+    width: 75%; height: inherit; float: left; position: relative; overflow: hidden;
+  }
 
 }
 @media (max-width: 600px) {
   #sidebar{
-    width: 100%;height: 25%;
+    width: 100%;
   }
   #map{
-    width: 100%; height: 75%;
-    overflow: visible;
+    width: 100%; height: inherit; float: left; position: relative;
+  }
+  html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
   }
 }
