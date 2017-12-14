@@ -42,40 +42,40 @@ var initMap = function () {
     self.query = ko.observable()
     self.mySearch = function(){
       setMapOnAll(null)
-    for (var idx in self.listPlaces()) {
-      var place = self.listPlaces()[idx]
-      if(place.name.toLowerCase().indexOf(self.query().toLowerCase()) !== -1){
-        place.isVisible(true)
-        listMarkers[idx].setMap(map)
-      }
-      else {
-        listMarkers[idx].setMap(null)
+      for (var idx in self.listPlaces()) {
+        var place = self.listPlaces()[idx]
         place.isVisible(false)
+        for (word of self.query().split()){
+          if(place.name.toLowerCase().indexOf(word.toLowerCase()) !== -1){
+            place.isVisible(true)
+            listMarkers[idx].setMap(map)
+          }
+
+        }
+
       }
     }
-  }
     self.myCancel = function(){
           setMapOnAll(map)
           for (var place of self.listPlaces()) {
               place.isVisible(true)
           }
           self.query("")
-
       }
     self.onClick = function (place){
       for (var placem of self.listPlaces()) {
         if(placem!=place)
           placem.isActive(false)
       }
-        toggleActive(place,listMarkers)
+      toggleActive(place,listMarkers)
     }
   }
-   infoWindow = new google.maps.InfoWindow({
-  content: null})
+  infoWindow = new google.maps.InfoWindow({
+    content: null})
   map = new google.maps.Map(document.getElementById('map'), {
-  center: {"lat": 41.58989350941445,
-        "lng": -93.61109381248022},
-zoom: 13})
+    center: {"lat": 41.58989350941445,
+      "lng": -93.61109381248022},
+    zoom: 13})
 var placeItemModel = function(name,description, phone,
   address, venueId, isActive, isVisible){
   this.name = ko.observable(name)
