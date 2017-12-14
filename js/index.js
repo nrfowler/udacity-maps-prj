@@ -1,7 +1,7 @@
 var map
 
 var toggleActive = function (place,listMarkers){
-  // if active, close infowindow and animation
+  //get the marker for this place
   var findPlaceIdx = function(place){
     for(let idx in listMarkers){
       if(place.name==listMarkers[idx].title){
@@ -15,7 +15,7 @@ var toggleActive = function (place,listMarkers){
   for(var markeri of listMarkers){
     markeri.setAnimation(null)
   }
-
+  //Deactivate if it is already active, else activate
   if(place.isActive()){
     infoWindow.close()
     place.isActive(false)
@@ -24,11 +24,8 @@ var toggleActive = function (place,listMarkers){
   else
     infoWindow.close()
   place.isActive(true)
-
-
   marker.setAnimation(google.maps.Animation.BOUNCE)
-
-  //marker.isActive = true
+  //Create and open the infowindow
   contentString = '<h1>'+(place.name || "") +'</h1>'
   +'<h3>'+ (place.description || "")+'</h3>'
   +'<div> Phone: '+(place.phone|| "N/A") +'</div>'
@@ -75,8 +72,8 @@ var initMap = function () {
   }
    infoWindow = new google.maps.InfoWindow({
   content: null})
-map = new google.maps.Map(document.getElementById('map'), {
-center: {"lat": 41.58989350941445,
+  map = new google.maps.Map(document.getElementById('map'), {
+  center: {"lat": 41.58989350941445,
         "lng": -93.61109381248022},
 zoom: 13})
 var placeItemModel = function(name,description, phone,
@@ -100,6 +97,7 @@ var listVenueIds=[
 var listMarkers =[]
 var vm = new ViewModel()
 var listPlaces = []
+//Make calls to Foursquare API and create markers and places arrays. Return a promise.
 function get4SquareData(idx,listVenueIds){
   return new Promise((resolve,reject)=>{
         let id = listVenueIds[idx]
@@ -112,49 +110,49 @@ function get4SquareData(idx,listVenueIds){
           method: "GET",
           async: true,
           success: function(data){
-          var element = new placeItemModel('','','','',id, false, true)
-          element.name = data.response.venue.name
-          element.description = data.response.venue.description
-          element.phone = data.response.venue.contact.formattedPhone
-          element.address = data.response.venue.location.address
-          listMarkers[idx] = new google.maps.Marker({
-            position: {lat: data.response.venue.location.lat,
-            lng: data.response.venue.location.lng},
-            map: map,
-            animation: google.maps.Animation.DROP,
-            title: data.response.venue.name})
-          listMarkers[idx].addListener('click',function(){
-            toggleActive(element,listMarkers)
-            //set all markers to inactive
-            for (var placem of vm.listPlaces()) {
-              if(placem!=element)
-                placem.isActive(false)
-            }
-          })
-          listPlaces[idx]=element
-          vm.listPlaces()[idx]=element
-          resolve()
-        },
-        error: function(data){
-          console.log("error retrieving data ")
-          reject()
+            var element = new placeItemModel('','','','',id, false, true)
+            element.name = data.response.venue.name
+            element.description = data.response.venue.description
+            element.phone = data.response.venue.contact.formattedPhone
+            element.address = data.response.venue.location.address
+            listMarkers[idx] = new google.maps.Marker({
+              position: {lat: data.response.venue.location.lat,
+              lng: data.response.venue.location.lng},
+              map: map,
+              animation: google.maps.Animation.DROP,
+              title: data.response.venue.name})
+            listMarkers[idx].addListener('click',function(){
+              toggleActive(element,listMarkers)
+              //set all markers to inactive
+              for (var placem of vm.listPlaces()) {
+                if(placem!=element)
+                  placem.isActive(false)
+              }
+            })
+            listPlaces[idx]=element
+            vm.listPlaces()[idx]=element
+            resolve()
+          },
+          error: function(data){
+            alert("Error retrieving data: Foursquare connection failed.")
+            reject()
         }})
   })
 
 }
+//wait for all asynchronous ajax calls to finish before applying bindings to VM.
 async function getData(){
   let promises =[]
   for (let idx in listVenueIds) {
     promises.push(
       get4SquareData(idx,listVenueIds))
-
   }
   await Promise.all(promises)
   ko.applyBindings(vm)
 
   }
   getData()
-
+//set the map attribute for all markers
   function setMapOnAll(map) {
         for (var i = 0; i < listMarkers.length; i++) {
           listMarkers[i].setMap(map);

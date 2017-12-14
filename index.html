@@ -8,11 +8,11 @@
   </head>
   <body>
     <div id = "sidebar">
-      <input type="search" id="mySearch"  data-bind="value: query" placeholder="Search for something..">
-      <div id="searchbuttons">
-      <button data-bind="click: mySearch">Search</button>
-      <button  data-bind="click: myCancel">Cancel</button>
-    </div>
+      <input type="search" id="mySearch" data-bind="value: query" placeholder="Search for something..">
+      <div id="searchButtonDiv">
+        <button class="searchbuttons" data-bind="click: mySearch">Search</button>
+        <button class="searchbuttons" data-bind="click: myCancel">Cancel</button>
+      </div>
       <table  data-bind="foreach: listPlaces()">
         <tr>
           <td>
