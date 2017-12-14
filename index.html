@@ -8,7 +8,8 @@
   </head>
   <body>
     <div id = "sidebar">
-      <input type="search" id="mySearch" data-bind="value: query" placeholder="Search for something..">
+      <input type="search" id="mySearch" data-bind="textInput : query,
+                  event: {keypress: onEnter}" placeholder="Search for something..">
       <div id="searchButton">
         <button class="searchButton" data-bind="click: mySearch">Search</button>
         <button class="searchButton" data-bind="click: myCancel">Cancel</button>

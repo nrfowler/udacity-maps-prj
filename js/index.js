@@ -40,6 +40,10 @@ var initMap = function () {
     let self = this
     self.listPlaces = ko.observableArray([])
     self.query = ko.observable()
+    self.onEnter = function(d,e){
+      e.keyCode === 13 && self.mySearch();
+      return true;
+    }
     self.mySearch = function(){
       setMapOnAll(null)
       for (var idx in self.listPlaces()) {
