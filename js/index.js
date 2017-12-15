@@ -1,5 +1,9 @@
 var map
-
+var mapFail = function(){
+  alert("Google Maps API failed to load")
+}
+//opens the marker's infowindow and makes marker bounce if it is not active,
+//or else closes the infowindow and stops bouncing
 var toggleActive = function (place,listMarkers){
   //get the marker for this place
   var findPlaceIdx = function(place){
@@ -59,6 +63,11 @@ var initMap = function () {
 
       }
     }
+<<<<<<< Updated upstream
+=======
+  }
+  self.query.subscribe(self.mySearch)
+>>>>>>> Stashed changes
     self.myCancel = function(){
           setMapOnAll(map)
           for (var place of self.listPlaces()) {

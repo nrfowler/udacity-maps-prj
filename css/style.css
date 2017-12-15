@@ -1,4 +1,5 @@
 @media (min-width: 601px) {
+<<<<<<< Updated upstream
   .markerButton{
     width: 100%;
   }
@@ -24,6 +25,34 @@
   #map{
     width: 75%; height: inherit; float: left; position: relative; overflow: hidden;
   }
+=======
+
+.markerButton{
+  width: 100%;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#searchbuttons{
+  margin: 10px;
+
+  width: 50%;
+}
+#searchButtonDiv{
+  width: 100%;
+}
+#mySearch{
+  width: 100%;
+}
+#sidebar{
+  width: 25%;height: 300px; float: left;
+}
+#map{
+  width: 75%; height: inherit; float: left; position: relative; overflow: hidden;
+}
+>>>>>>> Stashed changes
 
 }
 @media (max-width: 600px) {
