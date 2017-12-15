@@ -63,11 +63,10 @@ var initMap = function () {
 
       }
     }
-<<<<<<< Updated upstream
-=======
-  }
+
+
   self.query.subscribe(self.mySearch)
->>>>>>> Stashed changes
+
     self.myCancel = function(){
           setMapOnAll(map)
           for (var place of self.listPlaces()) {
